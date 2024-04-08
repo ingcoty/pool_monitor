@@ -1,0 +1,15 @@
+on: push
+name: deploy
+jobs:
+  deploy:
+    name: Publish commit hash to mqtt broker
+    runs-on: ubuntu-latest
+    steps:
+    - uses: juhrlass/mqtt-action@master
+      with:
+        protocol: mqtt
+        host: broker.hivemq.com
+        port: 1883
+        topic: "mqtt-github-action/pool_monitor"
+        message: ${{ github.sha }}
+        username: 'carlos'
